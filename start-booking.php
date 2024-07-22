@@ -46,7 +46,7 @@ $amount = $row['amount'];
                     <div class="row">
                         <div class="col-md-4">
                             <div style="d-flex flex-column">
-                                <h4 style="margin-top: 0px;color: #3c0403;font-family: Bold;">Flight from <?php echo $ffrom; ?> to <?php echo $fto; ?>
+                                <h4 style="margin-top: 0px;color: #3c0403;pfont-family: Bold;">Flight from <?php echo $ffrom; ?> to <?php echo $fto; ?>
                                 </h4>
                                 <span><strong>Plane Name:</strong> <?php echo $plane; ?></span><br>
                                 <span><strong>Flight Date:</strong> <?php echo $fdate; ?></span><br>
