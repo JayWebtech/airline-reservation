@@ -77,8 +77,14 @@ $bookedseats = implode(',', $bookedseatsArray);
                                     style="font-family: Bold; color: #5cb85c"><?php echo number_format($amount); ?></span>
                             </h3>
                             <p id="numPeople">Paying for: 1 person</p>
+                            
                             <br>
                             <form id="formadd" name="form1" method="post">
+                            <input type="hidden" class="form-control" id="totalprice" name="totalprice" required>
+                                <input type="hidden" name="ffrom" value="<?php echo $ffrom; ?>">
+                                <input type="hidden" name="fto" value="<?php echo $fto; ?>">
+                                <input type="hidden" name="fdate" value="<?php echo $fdate; ?>">
+                                <input type="hidden" name="id" value="<?php echo $id; ?>">
                                 <input type="text" id="selectedSeats" class="form-control" placeholder="Selected Seats"
                                     name="selectedSeats" value="" readonly>
                                 <br>
@@ -93,9 +99,19 @@ $bookedseats = implode(',', $bookedseatsArray);
                                         <input type="text" class="form-control" name="main_sname"
                                             placeholder="Enter your surname" required>
                                     </div>
+                                    <div class="form-group col-md-6">
+                                        <label>Email</label>
+                                        <input type="text" class="form-control" name="email"
+                                            placeholder="Enter your email" required>
+                                    </div>
+                                    <div class="form-group col-md-6">
+                                        <label>Phone Number</label>
+                                        <input type="text" class="form-control" name="gsm"
+                                            placeholder="Enter your number" required>
+                                    </div>
                                     <div class="form-group col-md-12">
                                         <label>State</label>
-                                        <select name="state" class="form-control">
+                                        <select name="state" class="form-control" required>
                                             <option value="Abia">Abia</option>
                                             <option value="Adamawa">Adamawa</option>
                                             <option value="Akwa Ibom">Akwa Ibom</option>
@@ -136,11 +152,16 @@ $bookedseats = implode(',', $bookedseatsArray);
 
                                         </select>
                                     </div>
-                                   
+
                                 </div>
-                                <div id="bookingFormsContainer">
-                                        <!-- Dynamic forms will be added here -->
-                                    </div>
+                                
+                                <div id="additionalFormsContainer">
+                                    <!-- Dynamic forms will be added here -->
+                                </div>
+                                <button class="btn btn-primary btn-block btn-lg" id="save"
+                                    style="background-color: #3c0403;border: none; margin-top: 22px"> <span id="spinner"
+                                        class="spinner-border spinner-border-sm" role="status" aria-hidden="true"
+                                        style="width: 20px; height: 20px;display: none;"></span> Reserve Flight</button>
                             </form>
                         </div>
                         <div class="col-md-8">
@@ -165,112 +186,175 @@ $bookedseats = implode(',', $bookedseatsArray);
     </section>
 
     <script src="js/dismissible.js"></script>
-  
 
-<script>
-    (function() {
-        renderSeats();
-    })();
+    <script>
+        (function () {
+            renderSeats();
+        })();
 
-    function renderSeats() {
-        const plane = document.getElementById('plane');
-        const selectedSeatsInput = document.getElementById('selectedSeats');
-        const totalAmountElement = document.getElementById('totalAmount');
-        const numPeopleElement = document.getElementById('numPeople');
-        const bookingFormsContainer = document.getElementById('bookingFormsContainer');
+        function renderSeats() {
+            const plane = document.getElementById('plane');
+            const selectedSeatsInput = document.getElementById('selectedSeats');
+            const totalAmountElement = document.getElementById('totalAmount');
+            const numPeopleElement = document.getElementById('numPeople');
+            const additionalFormsContainer = document.getElementById('additionalFormsContainer');
+            const totalprice = document.getElementById('totalprice');
 
-        let selectedSeats = []; // Array to store selected seat numbers
-        const baseAmount = <?php echo $amount; ?>; // Base price per seat
+            let selectedSeats = []; // Array to store selected seat numbers
+            const baseAmount = <?php echo $amount; ?>; // Base price per seat
 
-        plane.innerHTML = ''; // Clear previous seats
+            plane.innerHTML = ''; // Clear previous seats
 
-        const totalSeats = parseInt(<?php echo $seat; ?>);
-        const occupiedSeats = "<?php echo $bookedseats; ?>".split(',').map(Number);
+            const totalSeats = parseInt(<?php echo $seat; ?>);
+            const occupiedSeats = "<?php echo $bookedseats; ?>".split(',').map(Number);
 
-        if (!totalSeats || totalSeats <= 0) return;
+            if (!totalSeats || totalSeats <= 0) return;
 
-        const seatsPerRow = 6; // Seats per row
-        const rows = Math.ceil(totalSeats / seatsPerRow); // Calculate number of rows
+            const seatsPerRow = 6; // Seats per row
+            const rows = Math.ceil(totalSeats / seatsPerRow); // Calculate number of rows
 
-        // Generate seats dynamically
-        for (let i = 0; i < rows; i++) {
-            const row = document.createElement('div');
-            row.classList.add('row-seats');
+            // Generate seats dynamically
+            for (let i = 0; i < rows; i++) {
+                const row = document.createElement('div');
+                row.classList.add('row-seats');
 
-            for (let j = 0; j < seatsPerRow; j++) {
-                const seatNumber = i * seatsPerRow + j + 1;
-                if (seatNumber > totalSeats) break; // Stop if we exceed the total number of seats
+                for (let j = 0; j < seatsPerRow; j++) {
+                    const seatNumber = i * seatsPerRow + j + 1;
+                    if (seatNumber > totalSeats) break; // Stop if we exceed the total number of seats
 
-                const seat = document.createElement('div');
-                seat.classList.add('seat');
-                seat.dataset.seatNumber = seatNumber; // Store the seat number in a data attribute
-                seat.innerText = seatNumber; // Display the seat number in the UI
+                    const seat = document.createElement('div');
+                    seat.classList.add('seat');
+                    seat.dataset.seatNumber = seatNumber; // Store the seat number in a data attribute
+                    seat.innerText = seatNumber; // Display the seat number in the UI
 
-                // Check if the seat is in the occupiedSeats array
-                if (occupiedSeats.includes(seatNumber)) {
-                    seat.classList.add('occupied');
+                    // Check if the seat is in the occupiedSeats array
+                    if (occupiedSeats.includes(seatNumber)) {
+                        seat.classList.add('occupied');
+                    }
+
+                    row.appendChild(seat);
                 }
 
-                row.appendChild(seat);
+                plane.appendChild(row);
             }
 
-            plane.appendChild(row);
-        }
+            // Add event listener to toggle selected class on click
+            const seats = document.querySelectorAll('.seat:not(.occupied)');
+            seats.forEach(seat => {
+                seat.addEventListener('click', () => {
+                    seat.classList.toggle('selected');
+                    const seatNumber = parseInt(seat.dataset.seatNumber);
 
-        // Add event listener to toggle selected class on click
-        const seats = document.querySelectorAll('.seat:not(.occupied)');
-        seats.forEach(seat => {
-            seat.addEventListener('click', () => {
-                seat.classList.toggle('selected');
-                const seatNumber = parseInt(seat.dataset.seatNumber);
+                    if (seat.classList.contains('selected')) {
+                        selectedSeats.push(seatNumber);
+                    } else {
+                        selectedSeats = selectedSeats.filter(num => num !== seatNumber);
+                    }
 
-                if (seat.classList.contains('selected')) {
-                    selectedSeats.push(seatNumber);
-                } else {
-                    selectedSeats = selectedSeats.filter(num => num !== seatNumber);
-                }
+                    // Ensure at least 1 person is selected, with a minimum total amount
+                    const numSeatsSelected = selectedSeats.length > 0 ? selectedSeats.length : 1;
+                    const totalAmount = baseAmount * numSeatsSelected;
 
-                // Ensure at least 1 person is selected, with a minimum total amount
-                const numSeatsSelected = selectedSeats.length > 0 ? selectedSeats.length : 1;
-                const totalAmount = baseAmount * numSeatsSelected;
+                    // Update the input field with selected seat numbers in the correct format
+                    selectedSeatsInput.value = selectedSeats.join(',');
 
-                // Update the input field with selected seat numbers in the correct format
-                selectedSeatsInput.value = selectedSeats.join(',');
+                    // Update the total amount and number of people
+                    totalAmountElement.innerText = new Intl.NumberFormat().format(totalAmount); // Format as NGN
+                    totalprice.value = totalAmount;
+                    numPeopleElement.innerText = `Paying for: ${numSeatsSelected} ${numSeatsSelected > 1 ? 'people' : 'person'}`;
 
-                // Update the total amount and number of people
-                totalAmountElement.innerText = new Intl.NumberFormat().format(totalAmount); // Format as NGN
-                numPeopleElement.innerText = `Paying for: ${numSeatsSelected} ${numSeatsSelected > 1 ? 'people' : 'person'}`;
-
-                // Generate booking forms based on selected seats
-                generateBookingForms(selectedSeats.length);
+                    // Generate additional booking forms based on selected seats, excluding the main booker
+                    generateAdditionalForms(numSeatsSelected - 1);
+                });
             });
-        });
 
-        function generateBookingForms(numSeats) {
-            bookingFormsContainer.innerHTML = ''; // Clear previous forms
+            function generateAdditionalForms(numAdditionalSeats) {
+                additionalFormsContainer.innerHTML = ''; // Clear previous additional forms
 
-            for (let i = 0; i < numSeats; i++) {
-                const formDiv = document.createElement('div');
-                formDiv.classList.add('row');
-                
-                formDiv.innerHTML = `
+                for (let i = 0; i < numAdditionalSeats; i++) {
+                    const formDiv = document.createElement('div');
+                    formDiv.classList.add('row');
+
+                    formDiv.innerHTML = `
                     <div class="form-group col-md-6">
-                        <label>Firstname</label>
-                        <input type="text" class="form-control" name="fname[]" placeholder="Enter your firstname" required>
+                        <label>Guest Firstname #${i + 1}</label>
+                        <input type="text" class="form-control" name="additional_fname[]" placeholder="Enter guest firstname" required>
                     </div>
                     <div class="form-group col-md-6">
-                        <label>Surname</label>
-                        <input type="text" class="form-control" name="sname[]" placeholder="Enter your surname" required>
-                        <input type="hidden" name="seat[]" value="${selectedSeats[i] || ''}">
+                        <label>Guest Surname #${i + 1}</label>
+                        <input type="text" class="form-control" name="additional_sname[]" placeholder="Enter guest surname" required>
                     </div>
-                    
+                    <input type="hidden" name="additional_seat[]" value="${selectedSeats[i + 1] || ''}">
                 `;
 
-                bookingFormsContainer.appendChild(formDiv);
+                    additionalFormsContainer.appendChild(formDiv);
+                }
             }
         }
-    }
-</script>
+    </script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+
+            //SIGN UP
+
+            $(document).on('submit', '#formadd', function (e) {
+                e.preventDefault();
+                $("#save").attr("disabled", "disabled");
+                $("#spinner").show();
+
+                var selectedSeats = $("#selectedSeats").val();
+                if (selectedSeats != "") {
+                    $.ajax({
+                        method: "POST",
+                        url: "process-booking.php",
+                        data: $(this).serialize(),
+                        success: function (data) {
+
+                            if (data !== "error") {
+                                window.open('receipt.php?id='+data, '_self');
+                            } else {
+                                $("#save").removeAttr("disabled");
+                                $("#success").show();
+                                $("#spinner").hide();
+                                $("#lock").show();
+                                iziToast.error({
+                                    title: '',
+                                    message: data,
+                                    position: 'topLeft',
+                                    animateInside: true,
+                                });
+                            }
+                        }
+                    });
+                } else {
+                    const plane = document.getElementById('plane');
+                    plane.classList.add('blink-border');
+
+                    // Remove the blink effect after 3 seconds
+                    setTimeout(() => {
+                        plane.classList.remove('blink-border');
+                    }, 3000);
+                    iziToast.info({
+                        title: '',
+                        message: 'Please select your seat',
+                        position: 'topLeft',
+                        animateInside: true,
+                    });
+
+                    // const dismissible = new Dismissible(document.querySelector('#dismissible-container'));
+
+                    // dismissible.info('All fields are required!');
+
+                    $("#lock").show();
+                    $("#save").removeAttr("disabled");
+                    $("#spinner").hide();
+
+                }
+            });
+
+        });
+
+    </script>
 
 
 

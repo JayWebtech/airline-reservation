@@ -313,6 +313,22 @@ background-color: #eee;
   margin: 20px auto;
   max-width: 600px;
   text-align: center;
+  border: 2px solid transparent;
+}
+.blink-border {
+  animation: blink 1s steps(2, start) infinite;
+}
+
+@keyframes blink {
+  0% {
+      border: 5px solid red;
+  }
+  80% {
+      border: 5px solid transparent;
+  }
+  100% {
+      border: 5px solid red;
+  }
 }
 .row-seats {
   display: flex;
