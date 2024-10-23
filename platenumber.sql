@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: Aug 10, 2024 at 09:12 PM
+-- Generation Time: Oct 23, 2024 at 09:21 PM
 -- Server version: 8.0.31
 -- PHP Version: 8.0.26
 
@@ -65,23 +65,29 @@ CREATE TABLE IF NOT EXISTS `bookings` (
   `gsm` varchar(50) NOT NULL,
   `email` varchar(50) NOT NULL,
   `booking_date` timestamp(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6),
+  `re_price` varchar(100) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=16 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=21 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Dumping data for table `bookings`
 --
 
-INSERT INTO `bookings` (`id`, `fname`, `sname`, `state`, `ffrom`, `tto`, `fdate`, `seats`, `flight_id`, `otherguests`, `amount`, `status`, `gsm`, `email`, `booking_date`) VALUES
-(1, 'Adamu', 'Jethro', 'Kaduna', 'Kano', 'Gombe', '2024-08-24', '12, 11, 20', '1', 'Samuel Jackson, Emmanuel Sam, Sam Jack', '123000', '', '', '', '2024-08-10 20:21:05.762624'),
-(2, 'Samuel', 'Jafar', 'Lagos', 'Kano', 'Gombe', '2024-08-24', '1,4', '1', 'Samuel Jackson, Emmanuel Sam', '89000', '', '', '', '2024-08-10 20:21:05.762624'),
-(11, 'Farman', 'Goliath', 'Abia', 'Kano', 'Gombe', '2024-08-24', '14', '1', '', '45000', '', '', '', '2024-08-10 20:21:05.762624'),
-(9, 'Farman', 'Goliath', 'Abia', 'Kano', 'Gombe', '2024-08-24', '8,9,10', '1', 'Airspeed Ambassador, Sameul DInnack', '135000', '', '', '', '2024-08-10 20:21:05.762624'),
-(10, 'Farman', 'Goliath', 'Abia', 'Kano', 'Gombe', '2024-08-24', '5', '1', '', '45000', '', '', '', '2024-08-10 20:21:05.762624'),
-(12, 'Farman', 'Goliath', 'Abia', 'Kano', 'Gombe', '2024-08-24', '15', '1', '', '45000', '', '', '', '2024-08-10 20:21:05.762624'),
-(13, 'Farman', 'Goliath', 'Abia', 'Kano', 'Gombe', '2024-08-24', '2,3', '1', 'Boeing Stratoliner', '90000', 'PAID', '0804333242', 'test@gmail.com', '2024-08-10 20:32:04.420999'),
-(14, 'Farman', 'Goliath', 'Abia', 'Abuja', 'Kano', '2024-08-30', '1,8,16', '4', 'Boeing Stratoliner, Airspeed Ambassador', '240000', 'PAID', '0804333242', 'test@gmail.com', '2024-08-10 21:02:54.286148'),
-(15, 'Farman', 'Goliath', 'Abia', 'Abuja', 'Kano', '2024-08-30', '10,12', '4', 'Boeing Stratoliner', '160000', 'PAID', '0804333242', 'test@gmail.com', '2024-08-10 21:03:52.312795');
+INSERT INTO `bookings` (`id`, `fname`, `sname`, `state`, `ffrom`, `tto`, `fdate`, `seats`, `flight_id`, `otherguests`, `amount`, `status`, `gsm`, `email`, `booking_date`, `re_price`) VALUES
+(1, 'Adamu', 'Jethro', 'Kaduna', 'Kano', 'Gombe', '2024-08-24', '12, 11, 20', '1', 'Samuel Jackson, Emmanuel Sam, Sam Jack', '123000', '', '', '', '2024-08-10 20:21:05.762624', ''),
+(2, 'Samuel', 'Jafar', 'Lagos', 'Kano', 'Gombe', '2024-08-24', '1,4', '1', 'Samuel Jackson, Emmanuel Sam', '89000', '', '', '', '2024-08-10 20:21:05.762624', ''),
+(11, 'Farman', 'Goliath', 'Abia', 'Kano', 'Gombe', '2024-08-24', '14', '1', '', '45000', '', '', '', '2024-08-10 20:21:05.762624', ''),
+(9, 'Farman', 'Goliath', 'Abia', 'Kano', 'Gombe', '2024-08-24', '8,9,10', '1', 'Airspeed Ambassador, Sameul DInnack', '135000', '', '', '', '2024-08-10 20:21:05.762624', ''),
+(10, 'Farman', 'Goliath', 'Abia', 'Kano', 'Gombe', '2024-08-24', '5', '1', '', '45000', '', '', '', '2024-08-10 20:21:05.762624', ''),
+(12, 'Farman', 'Goliath', 'Abia', 'Kano', 'Gombe', '2024-08-24', '15', '1', '', '45000', '', '', '', '2024-08-10 20:21:05.762624', ''),
+(13, 'Farman', 'Goliath', 'Abia', 'Kano', 'Gombe', '2024-08-24', '2,3', '1', 'Boeing Stratoliner', '90000', 'PAID', '0804333242', 'test@gmail.com', '2024-08-10 20:32:04.420999', ''),
+(14, 'Farman', 'Goliath', 'Abia', 'Abuja', 'Kano', '2024-08-30', '1,8,16', '4', 'Boeing Stratoliner, Airspeed Ambassador', '240000', 'PAID', '0804333242', 'test@gmail.com', '2024-08-10 21:02:54.286148', ''),
+(15, 'Farman', 'Goliath', 'Abia', 'Abuja', 'Kano', '2024-08-30', '10,12', '4', 'Boeing Stratoliner', '160000', 'PAID', '0804333242', 'test@gmail.com', '2024-08-10 21:03:52.312795', ''),
+(16, 'Farman', 'Goliath', 'Abia', 'Kano', 'Gombe', '2024-10-23', '16,17,22,6', '1', 'Boeing Stratoliner, Airspeed Ambassador, Airspeed Ambassador', '180000', '', '0804333242', 'test@gmail.com', '2024-10-23 21:06:25.263080', '-180000'),
+(17, 'Farman', 'Goliath', 'Abia', 'Kano', 'Gombe', '2024-10-23', '21,23,18,13', '1', 'Boeing Stratoliner, Airspeed Ambassador, Airspeed Ambassador', '180000', '', '0804333242', 'test@gmail.com', '2024-10-23 21:13:11.485776', ''),
+(18, 'Farman', 'Goliath', 'Abia', 'Kano', 'Gombe', '2024-10-23', '39,41,34,27,26', '1', 'Boeing Stratoliner, Airspeed Ambassador, Airspeed Ambassador, Boeing Stratoliner', '225000', '', '0804333242', 'test@gmail.com', '2024-10-23 21:14:53.831436', '123000'),
+(19, 'Farman', 'Goliath', 'Abia', 'Kano', 'Gombe', '2024-10-23', '28,29,30,36,33', '1', 'Boeing Stratoliner, Airspeed Ambassador, Airspeed Ambassador, Boeing Stratoliner', '225000', '', '0804333242', 'test@gmail.com', '2024-10-23 21:20:04.291118', '123000'),
+(20, 'Farman', 'Goliath', 'Abia', 'Kano', 'Gombe', '2024-10-23', '31,32,38,43,44', '1', 'Boeing Stratoliner, Airspeed Ambassador, Airspeed Ambassador, Boeing Stratoliner', '225000', '', '0804333242', 'test@gmail.com', '2024-10-23 21:21:14.779204', '225000');
 
 -- --------------------------------------------------------
 
@@ -106,7 +112,7 @@ CREATE TABLE IF NOT EXISTS `flights` (
 --
 
 INSERT INTO `flights` (`id`, `plane`, `fdate`, `ftime`, `ffrom`, `fto`, `amount`) VALUES
-(1, 'Piper PA-31 Navajo CV', '2024-08-24', '15:50', 'Kano', 'Gombe', '45000'),
+(1, 'Piper PA-31 Navajo CV', '2024-10-23', '15:50', 'Kano', 'Gombe', '45000'),
 (2, 'De Havilland Canada Dash 8', '2024-07-30', '19:52', 'Kano', 'Lagos', '45600'),
 (3, 'Airspeed Ambassador', '2024-07-30', '10:50', 'Birnin Kebbi', 'Maiduguri', '122000'),
 (4, 'Da vinci plane', '2024-08-30', '12:01', 'Abuja', 'Kano', '80000');
@@ -134,7 +140,7 @@ INSERT INTO `planes` (`id`, `seats`, `name`, `status`) VALUES
 (2, '50', 'Airspeed Ambassador', 'true'),
 (3, '25', 'Farman F.60 Goliath', 'false'),
 (5, '56', 'De Havilland Canada Dash 8', 'true'),
-(6, '23', 'Piper PA-31 Navajo CV', 'true'),
+(6, '50', 'Piper PA-31 Navajo CV', 'true'),
 (8, '50', 'Da vinci plane', 'true');
 
 -- --------------------------------------------------------

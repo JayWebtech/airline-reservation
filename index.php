@@ -38,6 +38,9 @@
                 <a href="login.php"><button class="btn btn-primary wow bounceInLeft" data-wow-delay="0.1s"><span class="bi bi-lock"></span>Admin Login</button></a>
                 &nbsp;&nbsp;&nbsp;
                 <a href="book.php"><button class="btn btn-primary wow bounceInLeft" data-wow-delay="0.1s"><span class="bi bi-lock"></span> Book a Flight</button></a>
+                &nbsp;&nbsp;&nbsp;
+                <a href="reschedule.php"><button class="btn btn-primary wow bounceInLeft" data-wow-delay="0.1s">Reschedule Flight</button></a>
+                &nbsp;&nbsp;&nbsp;
             </div>
             <div class="col-md-5">
                 <img class="wow fadeInDown" data-wow-delay="0.1s" src="img/aero.png">
