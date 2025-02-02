@@ -107,10 +107,10 @@ include "include/server.php";
                             <ul>
                             <li><a href="dashboard.php" ><span class="fa fa-dashboard"></span> Dashboard</a></li>
                                 <li><a href="generate.php" ><span class="bi bi-card-list"></span> Add Flight</a></li>
-                                <li><a href="view.php" class="active"><span class="bi bi-eye"></span> View Flights</a></li>
+                                <li><a href="view.php"><span class="bi bi-eye"></span> View Flights</a></li>
                                 <li><a href="register.php" ><span class="fa fa-drivers-license-o"></span> Register Plane</a></li>
-                                <li><a href="view_aero.php" ><span class="fa fa-drivers-license-o"></span> View Planes</a></li>
-                                <li><a href="view-bookings.php" class=""><span class="fa fa-drivers-license-o"></span> View Bookings</a></li>
+                                <li><a href="view_aero.php" class=""><span class="fa fa-drivers-license-o"></span> View Planes</a></li>
+                                <li><a href="view-bookings.php" class="active"><span class="fa fa-drivers-license-o"></span> View Bookings</a></li>
                                 <li><a href="index.php"><span class="fa fa-sign-out"></span> Logout</a></li>
                             </ul>
                         </div>
@@ -127,24 +127,24 @@ include "include/server.php";
                         <div class="col-md-12 shadow" style="background-color: #fff;padding: 20px;">
 
 
-                            <h4 style="font-family: Bold;background: #3c0403;padding: 10px;color: #fff;">VIEW ALL FLIGHTS</h4>
+                            <h4 style="font-family: Bold;background: #3c0403;padding: 10px;color: #fff;">VIEW BOOKINGS</h4>
                             <br>
                             <div class="demo-html"></div>
                     <table id="example" class="table table-striped table-bordered" style="width:100%">
                     <thead>
                         <th>S/N</th>
-                        <th>Plane</th>
-                        <th>Flight Date</th>
-                        <th>Flight Time</th>
-                        <th>From</th>
-                        <th>To</th>
-                        <th>Flight Amount</th>
-                        <th>Action</th>
-                        <th>Action</th>
+                        <th>Name</th>
+                        <th>Destination</th>
+                        <th>Seats</th>
+                        <th>Amount</th>
+                        <th>Guests</th>
+                        <th>Status</th>
+                        <th>Email</th>
+                        <th>Date</th>
                     </thead>
                     <tbody>
                         <?php
-                            $sql = "SELECT * FROM flights ORDER BY id DESC";
+                            $sql = "SELECT * FROM bookings ORDER BY id DESC";
                             $counter = 1;
                             //use for MySQLi-OOP
                             $query = mysqli_query($dbcon,$sql);
@@ -152,16 +152,16 @@ include "include/server.php";
                                 echo 
                                 "<tr>
                                     <td>".$counter++."</td>
-                                    <td>".$row['plane']."</td>
-                                    <td>".$row['fdate']."</td>
-                                    <td>".$row['ftime']."</td>
-                                    <td>".$row['ffrom']."</td>
-                                    <td>".$row['fto']."</td>
+                                    <td>".$row['fname']." ".$row['sname']."</td>
+                                    <td>".$row['ffrom']." to ".$row['tto']."</td>
+                                    <td>".$row['seats']."</td>
                                     <td>".$row['amount']."</td>
-                                    <td><a href='#delete_".$row['id']."' data-toggle='modal'><button class='btn btn-danger btn-sm'><span class='fa fa-trash'></span> Delete</button></td>
-                                    <td><a href='#edit_".$row['id']."' data-toggle='modal'><button class='btn btn-danger btn-sm'><span class='fa fa-edit'></span> Update</button></td>
+                                    <td>".$row['otherguests']."</td>
+                                    <td>".$row['status']."</td>
+                                    <td>".$row['email']."</td>
+                                    <td>".$row['fdate']."</td>
                                 </tr>";
-                                include('edit_delete_modal_flight.php');
+                                include('edit_delete_modal_plane.php');
                             }
                         ?>
                     </tbody>

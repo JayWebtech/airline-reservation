@@ -110,6 +110,7 @@ include "include/server.php";
                                 <li><a href="view.php"><span class="bi bi-eye"></span> View Flights</a></li>
                                 <li><a href="register.php" ><span class="fa fa-drivers-license-o"></span> Register Plane</a></li>
                                 <li><a href="view_aero.php" class="active"><span class="fa fa-drivers-license-o"></span> View Planes</a></li>
+                                <li><a href="view-bookings.php" class=""><span class="fa fa-drivers-license-o"></span> View Bookings</a></li>
                                 <li><a href="index.php"><span class="fa fa-sign-out"></span> Logout</a></li>
                             </ul>
                         </div>
